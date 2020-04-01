@@ -27,7 +27,7 @@ public class GameManagement {
                 do {
                     System.out.println(players[i].getName() + " Turn");
                     System.out.println("Enter disk coordinate :");
-                    x = input.nextInt();
+                    x = input.nextInt()-1;
                     y = map.converter(input.next().charAt(0));
                 } while (!placeDisk(x, y, players[i]) && !endGame());
                 map.print();
@@ -59,27 +59,27 @@ public class GameManagement {
                 return true;
         }
         int j = y - 1;
-        while (map.getBoard()[x][j] == colorToCheck && j > 0) {
+        while ( j > 0 && map.getBoard()[x][j] == colorToCheck ) {
             j--;
             if (map.getBoard()[x][j] == playerToPlace.getColor())
                 return true;
         }
         i = x + 1;
-        while (map.getBoard()[i][y] == colorToCheck && i < map.getROW() - 1) {
+        while ( i < map.getROW() - 1 && map.getBoard()[i][y] == colorToCheck ) {
             i++;
             if (map.getBoard()[i][y] == playerToPlace.getColor())
                 return true;
 
         }
         j = y + 1;
-        while (map.getBoard()[x][j] == colorToCheck && j < map.getCOLUMN() - 1) {
+        while ( j < map.getCOLUMN() - 1 && map.getBoard()[x][j] == colorToCheck) {
             j++;
             if (map.getBoard()[x][j] == playerToPlace.getColor())
                 return true;
         }
         i = x + 1;
         j = y + 1;
-        while (map.getBoard()[i][j] == colorToCheck && j < map.getCOLUMN() - 1 && i < map.getROW() - 1) {
+        while (j < map.getCOLUMN() - 1 && i < map.getROW() - 1 && map.getBoard()[i][j] == colorToCheck ) {
             j++;
             i++;
             if (map.getBoard()[i][j] == playerToPlace.getColor())
@@ -88,7 +88,7 @@ public class GameManagement {
         }
         i = x - 1;
         j = y - 1;
-        while (map.getBoard()[i][j] == colorToCheck && j > 0 && i > 0) {
+        while ( j > 0 && i > 0 && map.getBoard()[i][j] == colorToCheck ) {
             j--;
             i--;
             if (map.getBoard()[i][j] == playerToPlace.getColor())
@@ -97,7 +97,7 @@ public class GameManagement {
         }
         i = x - 1;
         j = y + 1;
-        while (map.getBoard()[i][j] == colorToCheck && j < map.getCOLUMN() - 1 && i > 0) {
+        while (j < map.getCOLUMN() - 1 && i > 0 && map.getBoard()[i][j] == colorToCheck ) {
             j++;
             i--;
             if (map.getBoard()[i][j] == playerToPlace.getColor())
@@ -105,7 +105,7 @@ public class GameManagement {
         }
         i = x + 1;
         j = y - 1;
-        while (map.getBoard()[i][j] == colorToCheck && j > 0 && i > map.getROW()) {
+        while ( j > 0 && i > map.getROW() && map.getBoard()[i][j] == colorToCheck ) {
             j--;
             i++;
             if (map.getBoard()[i][j] == playerToPlace.getColor())
@@ -124,7 +124,7 @@ public class GameManagement {
         else
             colorToCheck = 'W';
         int i = x - 1;
-        while (map.getBoard()[i][y]==colorToCheck && i > 0) {
+        while ( i > 0 && map.getBoard()[i][y]==colorToCheck) {
             i--;
             if (map.getBoard()[i][y] == playerToPlace.getColor()) {
                 i++;
@@ -136,7 +136,7 @@ public class GameManagement {
             }
         }
         int j = y - 1;
-        while (map.getBoard()[x][j] == colorToCheck && j > 0) {
+        while ( j > 0 && map.getBoard()[x][j] == colorToCheck ) {
             j--;
             if (map.getBoard()[x][j] == playerToPlace.getColor()) {
                 j++;
@@ -149,7 +149,7 @@ public class GameManagement {
 
         }
         i = x + 1;
-        while (map.getBoard()[i][y] == colorToCheck && i < map.getROW() - 1) {
+        while (  i < map.getROW() - 1 && map.getBoard()[i][y] == colorToCheck) {
             i++;
             if (map.getBoard()[i][y] == playerToPlace.getColor()) {
                 i--;
@@ -161,7 +161,7 @@ public class GameManagement {
             }
         }
         j = y + 1;
-        while (map.getBoard()[x][j] == colorToCheck && j < map.getCOLUMN() - 1) {
+        while ( j < map.getCOLUMN() - 1 && map.getBoard()[x][j] == colorToCheck ) {
             j++;
             if (map.getBoard()[x][j] == playerToPlace.getColor()) {
                 j--;
@@ -174,7 +174,7 @@ public class GameManagement {
         }
         i = x + 1;
         j = y + 1;
-        while (map.getBoard()[i][j] == colorToCheck && j < map.getCOLUMN() - 1 && i < map.getROW() - 1) {
+        while ( j < map.getCOLUMN() - 1 && i < map.getROW() - 1 && map.getBoard()[i][j] == colorToCheck ) {
             j++;
             i++;
             if (map.getBoard()[i][j] == playerToPlace.getColor()) {
@@ -190,7 +190,7 @@ public class GameManagement {
         }
         i = x - 1;
         j = y - 1;
-        while (map.getBoard()[i][j] == colorToCheck && j > 0 && i > 0) {
+        while ( j > 0 && i > 0 && map.getBoard()[i][j] == colorToCheck ) {
             j--;
             i--;
             if (map.getBoard()[i][j] == playerToPlace.getColor()) {
@@ -206,7 +206,7 @@ public class GameManagement {
         }
         i = x - 1;
         j = y + 1;
-        while (map.getBoard()[i][j] == colorToCheck && j < map.getCOLUMN() - 1 && i > 0) {
+        while ( j < map.getCOLUMN() - 1 && i > 0 && map.getBoard()[i][j] == colorToCheck ) {
             j++;
             i--;
             if (map.getBoard()[i][j] == playerToPlace.getColor()) {
@@ -222,7 +222,7 @@ public class GameManagement {
         }
         i = x + 1;
         j = y - 1;
-        while (map.getBoard()[i][j] == colorToCheck && j > 0 && i > map.getROW()) {
+        while ( j > 0 && i < map.getROW() -1 && map.getBoard()[i][j] == colorToCheck ) {
             j--;
             i++;
             if (map.getBoard()[i][j] == playerToPlace.getColor()) {
