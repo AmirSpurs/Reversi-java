@@ -4,39 +4,51 @@ import java.util.Scanner;
 public class GameManagement {
     private Map map;
     private Player[] players;
-    // private Player player2;
-
-    public GameManagement(Map map, Player player1, Player player2) {
+    private boolean isComputer ;
+    public GameManagement(Map map, Player player1, Player player2,boolean isComputer) {
         this.map = map;
         players = new Player[2];
         players[0] = player1;
-        players[1] = player2;
+        players[1] =  player2;
+        this.isComputer = isComputer;
     }
 
-    public void PlayGame() {
+    public void PlayGame() throws InterruptedException {
         Scanner input = new Scanner(System.in);
-        map.print();
         while (!endGame()) {
             for (int i = 0; i < 2; i++) {
+                map.print();
+                scoreBoard();
                 int x, y;
                 if (!anyAvailableMove(players[i])) {
                     System.out.println(players[i].getName() + " Turn");
                     System.out.println("PASS");
                     continue;
                 }
-                do {
+                if (!(players[i] instanceof Computer)) {
+                    do {
+                          System.out.println(players[i].getName() + " Turn");
+                          System.out.println("Enter disk coordinate :");
+                        x = input.nextInt() - 1;
+                        y = map.converter(input.next().charAt(0));
+                    } while (!placeDisk(x, y, players[i]) && !endGame());
+                }
+                else
+                {
                     System.out.println(players[i].getName() + " Turn");
-                    System.out.println("Enter disk coordinate :");
-                    x = input.nextInt()-1;
-                    y = map.converter(input.next().charAt(0));
-                } while (!placeDisk(x, y, players[i]) && !endGame());
-                map.print();
+                    //Thread.sleep(1140);
+                    Computer ai = (Computer )players[i] ;
+                    int [] coordinates = ai.bestMove(map);
+                    System.out.println((coordinates[0]+1)+"  "+(coordinates[1]+1));
+                    placeDisk(coordinates[0],coordinates[1],players[i]);
+                }
+
                 if (endGame()) {
                     System.out.println("Game Ended");
                     if (players[0].getDiskNumber()>players[1].getDiskNumber())
-                      System.out.println(players[0].getName() + "IS THE  !!!!WINNER!!!");
+                      System.out.println(players[0].getName() + " IS THE  !!!!WINNER!!!");
                     else
-                        System.out.println(players[1].getName() + "IS THE  !!!!WINNER!!!");
+                        System.out.println(players[1].getName() + " IS THE  !!!!WINNER!!!");
                     break;
                 }
             }
@@ -105,7 +117,7 @@ public class GameManagement {
         }
         i = x + 1;
         j = y - 1;
-        while ( j > 0 && i > map.getROW() && map.getBoard()[i][j] == colorToCheck ) {
+        while ( j > 0 && i < map.getROW()-1 && map.getBoard()[i][j] == colorToCheck ) {
             j--;
             i++;
             if (map.getBoard()[i][j] == playerToPlace.getColor())
@@ -116,6 +128,7 @@ public class GameManagement {
     }
 
     private boolean placeDisk(int x, int y, Player playerToPlace) {
+        int diff = 0;
         if (!validInput(x, y, playerToPlace))
             return false;
         char colorToCheck;
@@ -131,7 +144,7 @@ public class GameManagement {
                 while (i < x) {
                     map.flipDisk(i, y);
                     i++;
-                    playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+                    diff++;
                 }
             }
         }
@@ -143,7 +156,7 @@ public class GameManagement {
                 while (j < y) {
                     map.flipDisk(x, j);
                     j++;
-                    playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+                    diff++;
                 }
             }
 
@@ -156,7 +169,7 @@ public class GameManagement {
                 while (i > x) {
                     map.flipDisk(i, y);
                     i--;
-                    playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+                    diff++;
                 }
             }
         }
@@ -168,7 +181,7 @@ public class GameManagement {
                 while (j > y) {
                     map.flipDisk(x, j);
                     j--;
-                    playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+                    diff++;
                 }
             }
         }
@@ -184,7 +197,7 @@ public class GameManagement {
                     map.flipDisk(i, j);
                     j--;
                     i--;
-                    playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+                    diff++;
                 }
             }
         }
@@ -200,7 +213,7 @@ public class GameManagement {
                     map.flipDisk(i, j);
                     j++;
                     i++;
-                    playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+                    diff++;
                 }
             }
         }
@@ -216,7 +229,7 @@ public class GameManagement {
                     map.flipDisk(i, j);
                     j--;
                     i++;
-                    playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+                    diff++;
                 }
             }
         }
@@ -232,12 +245,19 @@ public class GameManagement {
                     map.flipDisk(i, j);
                     j++;
                     i--;
-                    playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+                    diff++;
                 }
             }
         }
         map.putDisk(x, y, playerToPlace.getColor());
-        playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + 1);
+        diff++;
+        playerToPlace.setDiskNumber(playerToPlace.getDiskNumber() + diff);
+        if (playerToPlace==players[0])
+            players[1].setDiskNumber(players[1].getDiskNumber() - diff + 1);
+        else
+            players[0].setDiskNumber( players[0].getDiskNumber() - diff +1);
+
+
         return true;
     }
 
@@ -257,6 +277,12 @@ public class GameManagement {
                     return true;
         return false;
 
+    }
+    public void scoreBoard()
+    {
+        System.out.println("SCORE BOARD");
+        for (int i=0;i<2;i++)
+            System.out.println(players[i].getName()+": "+players[i].getDiskNumber());
 
     }
 
