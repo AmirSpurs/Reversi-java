@@ -3,14 +3,26 @@ import java.util.Scanner;
 public class Run {
     public static void main(String[] args) throws Exception {
 
-        Map map = new Map();
-        System.out.println("Enter first player name :");
+        int mainMenu = 2;
         Scanner input = new Scanner(System.in);
-        Player player1 = new Player(input.nextLine(), "Black");
-        System.out.println("Enter second player name :");
-        Player player2 = new Computer( input.nextLine(), "White");
-        GameManagement playGame = new GameManagement(map,player1,player2,true);
-        //System.out.println("sss");
+        Player player2,player1 ;
+        System.out.println("Main Menu\n1)MultiPlayer\n2)Single Player\n3)Exit");
+        mainMenu = input.nextInt();
+
+
+        if (mainMenu!= 2 && mainMenu != 1)
+            return;
+        Map map = new Map();
+        System.out.print("Enter first player name :");
+         player1 = new Player(input.next(), "Black");
+        if (mainMenu== 1) {
+            System.out.print("Enter second player name :");
+             player2 = new Player(input.next(), "White");
+        }
+        else
+            player2 = new Computer ("COM", "White") ;
+
+        GameManagement playGame = new GameManagement(map,player1,player2);
         playGame.PlayGame();
 
     }

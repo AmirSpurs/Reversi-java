@@ -4,13 +4,11 @@ import java.util.Scanner;
 public class GameManagement {
     private Map map;
     private Player[] players;
-    private boolean isComputer ;
-    public GameManagement(Map map, Player player1, Player player2,boolean isComputer) {
+    public GameManagement(Map map, Player player1, Player player2) {
         this.map = map;
         players = new Player[2];
         players[0] = player1;
         players[1] =  player2;
-        this.isComputer = isComputer;
     }
 
     public void PlayGame() throws InterruptedException {

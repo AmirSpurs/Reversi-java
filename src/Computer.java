@@ -131,7 +131,6 @@ public class Computer extends Player {
                 }
             }
         }
-        System.out.println(valuePerCell[6][6]);
     }
 
     public int[] bestMove(Map map) {
