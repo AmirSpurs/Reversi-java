@@ -7,12 +7,13 @@ public class Run {
         Scanner input = new Scanner(System.in);
         Player player2,player1 ;
         System.out.println("Main Menu\n1)MultiPlayer\n2)Single Player\n3)Exit");
-        mainMenu = input.nextInt();
+        //mainMenu = input.nextInt();
 
 
         if (mainMenu!= 2 && mainMenu != 1)
             return;
         Map map = new Map();
+        map.print();
         System.out.print("Enter first player name :");
          player1 = new Player(input.next(), "Black");
         if (mainMenu== 1) {

@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Map {
     private final int ROW;
     private final int COLUMN;
@@ -15,6 +17,7 @@ public class Map {
                 else if ((i == 4 && j == 3) || (i == 3 && j == 4))
                     board[i][j] = 'B';
                 else board[i][j] = ' ';
+
     }
 
     public void putDisk(int x,int y,char color)
@@ -71,16 +74,26 @@ public class Map {
 
     public void print() {
         for (char i = 'A'; i <= 'H'; i++)
-            System.out.print("     " + i);
+            System.out.print("\u001B[93m"+"     " + i);
         System.out.println();
-        System.out.println("  _________________________________________________");
+        System.out.println("\u001B[31m"+"  _____________________________________________________");
 
         for (int i = 0; i < ROW; i++) {
-            System.out.print((i + 1) + " ");
+            System.out.print("\u001B[93m"+(i + 1) + " ");
             for (int j = 0; j < COLUMN; j++)
-                System.out.print("|  " + board[i][j] + "  ");
+            {
+                System.out.print("\u001B[31m"+"|  " );
+            if (board[i][j]=='W')
+                System.out.print("\u001B[30m"+ '⬤' + "\u001B[31m"+"  ");
+                else if (board[i][j]=='B')
+                 System.out.print("\u001B[97m"+ '⬤' + "\u001B[31m"+"  ");
+                else
+                System.out.print("\u001B[90m"+'⬤' + "\u001B[31m"+"  ");
+
+
+            }
             System.out.println("|");
-            System.out.println("  _________________________________________________");
+            System.out.println("  _____________________________________________________"+"\u001B[0m");
 
         }
     }
