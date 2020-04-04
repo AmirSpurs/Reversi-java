@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.lang.management.PlatformLoggingMXBean;
 import java.util.Scanner;
 
@@ -12,26 +11,31 @@ public class GameManagement {
         players[1] =  player2;
     }
 
-    public void PlayGame() throws InterruptedException, IOException {
+    public void PlayGame() throws InterruptedException {
         Scanner input = new Scanner(System.in);
         while (!endGame()) {
             for (int i = 0; i < 2; i++) {
-               // System.out.print('\u000C');
+                System.out.print("\033[H\033[2J");
                 map.print();
                 scoreBoard();
                 int x, y;
                 if (!anyAvailableMove(players[i])) {
                     System.out.println(players[i].getName() + " Turn");
                     System.out.println("PASS");
+                    Thread.sleep(1500);
                     continue;
                 }
-                int flag = 0;
+                boolean flag = false ;
                 if (!(players[i] instanceof Computer)) {
                     do {
-                        if (flag==1)
+                        if (flag) {
                             System.out.println("Invalid Input Try Again");
-                        flag = 1;
-                        System.out.println(players[i].getName() + " Turn");
+                            Thread.sleep(800);
+                            System.out.print("\033[H\033[2J");
+                            map.print();
+                        }
+                            flag = true;
+                          System.out.println(players[i].getName() + " Turn");
                           System.out.println("Enter disk coordinate :");
                         x = input.nextInt() - 1;
                         y = map.converter(input.next().charAt(0));
@@ -40,10 +44,10 @@ public class GameManagement {
                 else
                 {
                     System.out.println(players[i].getName() + " Turn");
-                    //Thread.sleep(1140);
                     Computer ai = (Computer )players[i] ;
                     int [] coordinates = ai.bestMove(map);
-                    System.out.println((coordinates[0]+1)+"  "+(coordinates[1]+1));
+                    System.out.println((coordinates[0]+1)+"  "+( (char) (coordinates[1]+65)));
+                    Thread.sleep(1500);
                     placeDisk(coordinates[0],coordinates[1],players[i]);
                 }
 
@@ -63,6 +67,7 @@ public class GameManagement {
     private boolean validInput(int x, int y, Player playerToPlace) {
         if (x >= map.getROW() || x < 0 || y >= map.getCOLUMN() || y < 0 || map.getBoard()[x][y] != ' ')
             return false;
+
         char colorToCheck;
         if (playerToPlace.getColor() == 'W')
             colorToCheck = 'B';
@@ -289,21 +294,6 @@ public class GameManagement {
             System.out.println(players[i].getName()+": "+players[i].getDiskNumber());
 
     }
-    public void clearConsole() throws IOException {
 
-
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows"))
-            {
-                Runtime.getRuntime().exec("cls");
-            }
-            else
-            {
-                Runtime.getRuntime().exec("clear");
-            }
-
-
-    }
 
 }

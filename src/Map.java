@@ -71,28 +71,29 @@ public class Map {
 
         }
     }
+
     public void print() {
         for (char i = 'A'; i <= 'H'; i++)
             System.out.print("\u001B[93m"+"     " + i);
         System.out.println();
-        System.out.println("\u001B[31m"+"  _____________________________________________________");
+        System.out.println("\u001B[31m"+"  _________________________________________________");
 
         for (int i = 0; i < ROW; i++) {
             System.out.print("\u001B[93m"+(i + 1) + " ");
             for (int j = 0; j < COLUMN; j++)
             {
                 System.out.print("\u001B[31m"+"|  " );
-            if (board[i][j]=='W')
-                System.out.print("\u001B[30m"+ '⬤' + "\u001B[31m"+"  ");
+                if (board[i][j]=='W')
+                    System.out.print("\u001B[97m"+ '⬤' + "\u001B[31m"+"  ");
                 else if (board[i][j]=='B')
-                 System.out.print("\u001B[97m"+ '⬤' + "\u001B[31m"+"  ");
+                    System.out.print("\u001B[92m"+ '⬤' + "\u001B[31m"+"  ");
                 else
-                System.out.print("\u001B[90m"+'⬤' + "\u001B[31m"+"  ");
+                    System.out.print("\u001B[90m"+'⬤' + "\u001B[31m"+"  ");
 
 
             }
             System.out.println("|");
-            System.out.println("  _____________________________________________________"+"\u001B[0m");
+            System.out.println("  _________________________________________________"+"\u001B[0m");
 
         }
     }
