@@ -71,7 +71,6 @@ public class Map {
 
         }
     }
-
     public void print() {
         for (char i = 'A'; i <= 'H'; i++)
             System.out.print("\u001B[93m"+"     " + i);

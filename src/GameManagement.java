@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.lang.management.PlatformLoggingMXBean;
 import java.util.Scanner;
 
@@ -11,10 +12,11 @@ public class GameManagement {
         players[1] =  player2;
     }
 
-    public void PlayGame() throws InterruptedException {
+    public void PlayGame() throws InterruptedException, IOException {
         Scanner input = new Scanner(System.in);
         while (!endGame()) {
             for (int i = 0; i < 2; i++) {
+               // System.out.print('\u000C');
                 map.print();
                 scoreBoard();
                 int x, y;
@@ -23,9 +25,13 @@ public class GameManagement {
                     System.out.println("PASS");
                     continue;
                 }
+                int flag = 0;
                 if (!(players[i] instanceof Computer)) {
                     do {
-                          System.out.println(players[i].getName() + " Turn");
+                        if (flag==1)
+                            System.out.println("Invalid Input Try Again");
+                        flag = 1;
+                        System.out.println(players[i].getName() + " Turn");
                           System.out.println("Enter disk coordinate :");
                         x = input.nextInt() - 1;
                         y = map.converter(input.next().charAt(0));
@@ -283,6 +289,21 @@ public class GameManagement {
             System.out.println(players[i].getName()+": "+players[i].getDiskNumber());
 
     }
+    public void clearConsole() throws IOException {
 
+
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows"))
+            {
+                Runtime.getRuntime().exec("cls");
+            }
+            else
+            {
+                Runtime.getRuntime().exec("clear");
+            }
+
+
+    }
 
 }
