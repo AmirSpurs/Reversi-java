@@ -1,9 +1,20 @@
 import java.lang.management.PlatformLoggingMXBean;
 import java.util.Scanner;
 
+/**
+ * The type Game management.
+ */
 public class GameManagement {
     private Map map;
     private Player[] players;
+
+    /**
+     * Instantiates a new Game management.
+     *
+     * @param map     the map
+     * @param player1 the player 1
+     * @param player2 the player 2
+     */
     public GameManagement(Map map, Player player1, Player player2) {
         this.map = map;
         players = new Player[2];
@@ -11,6 +22,11 @@ public class GameManagement {
         players[1] =  player2;
     }
 
+    /**
+     * Play game.
+     *
+     * @throws InterruptedException the interrupted exception
+     */
     public void PlayGame() throws InterruptedException {
         Scanner input = new Scanner(System.in);
         while (!endGame()) {
@@ -287,6 +303,10 @@ public class GameManagement {
         return false;
 
     }
+
+    /**
+     * Score board.
+     */
     public void scoreBoard()
     {
         System.out.println("SCORE BOARD");

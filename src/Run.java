@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class Run {
     public static void main(String[] args) throws Exception {
         int mainMenu ;
+
+        System.out.println("\u001B[37m"+"\u001B[104m");
+        System.out.print("\033[H\033[2J");
+
         Scanner input = new Scanner(System.in);
         Player player2,player1 ;
         System.out.println("Main Menu\n1)MultiPlayer\n2)Single Player\n3)Exit");

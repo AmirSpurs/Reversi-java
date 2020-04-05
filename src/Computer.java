@@ -1,7 +1,20 @@
+/**
+ * The type Computer.
+ */
 public class Computer extends Player {
 
+    /**
+     * The Value per cell.
+     */
     int[][] valuePerCell;
 
+    /**
+     * Instantiates a new Computer.
+     *
+     * @param name  the name
+     * @param color the color
+     * @throws Exception the exception
+     */
     public Computer(String name, String color) throws Exception {
         super(name, color);
         valuePerCell = new int[8][8];
@@ -133,6 +146,12 @@ public class Computer extends Player {
         }
     }
 
+    /**
+     * Best move int [ ].
+     *
+     * @param map the map
+     * @return the int [ ]
+     */
     public int[] bestMove(Map map) {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)

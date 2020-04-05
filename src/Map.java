@@ -1,11 +1,17 @@
 import java.awt.*;
 
+/**
+ * The type Map.
+ */
 public class Map {
     private final int ROW;
     private final int COLUMN;
     private char[][] board;
 
 
+    /**
+     * Instantiates a new Map.
+     */
     public Map() {
         this.ROW = 8;
         this.COLUMN = 8;
@@ -20,10 +26,24 @@ public class Map {
 
     }
 
+    /**
+     * Put disk.
+     *
+     * @param x     the x
+     * @param y     the y
+     * @param color the color
+     */
     public void putDisk(int x,int y,char color)
     {
         board[x][y] = color;
     }
+
+    /**
+     * Flip disk.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void flipDisk (int x,int y)
     {
        if (board[x][y] =='W')
@@ -31,18 +51,40 @@ public class Map {
        else
            board[x][y] = 'W' ;
     }
+
+    /**
+     * Gets row.
+     *
+     * @return the row
+     */
     public int getROW() {
         return ROW;
     }
 
+    /**
+     * Gets column.
+     *
+     * @return the column
+     */
     public int getCOLUMN() {
         return COLUMN;
     }
 
+    /**
+     * Get board char [ ] [ ].
+     *
+     * @return the char [ ] [ ]
+     */
     public char[][] getBoard() {
         return board;
     }
 
+    /**
+     * Converter int.
+     *
+     * @param y the y
+     * @return the int
+     */
     public int converter(char y) {
         switch (y) {
             case 'A':
@@ -72,6 +114,9 @@ public class Map {
         }
     }
 
+    /**
+     * Print.
+     */
     public void print() {
         for (char i = 'A'; i <= 'H'; i++)
             System.out.print("\u001B[93m"+"     " + i);
@@ -86,14 +131,14 @@ public class Map {
                 if (board[i][j]=='W')
                     System.out.print("\u001B[97m"+ '⬤' + "\u001B[31m"+"  ");
                 else if (board[i][j]=='B')
-                    System.out.print("\u001B[92m"+ '⬤' + "\u001B[31m"+"  ");
+                    System.out.print("\u001B[30m"+ '⬤' + "\u001B[31m"+"  ");
                 else
-                    System.out.print("\u001B[90m"+'⬤' + "\u001B[31m"+"  ");
+                    System.out.print("\u001B[94m"+'⬤' + "\u001B[31m"+"  ");
 
 
             }
             System.out.println("|");
-            System.out.println("  _________________________________________________"+"\u001B[0m");
+            System.out.println("  _________________________________________________"+"\u001B[37m"+"\u001B[104m");
 
         }
     }
