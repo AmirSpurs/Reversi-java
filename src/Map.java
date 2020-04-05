@@ -1,16 +1,25 @@
 import java.awt.*;
 
 /**
- * The type Map.
+ * The Map class implant a class to manege the game's map
+ * it contains 8 rows and 8 columns rows are shown with 1,2,3,..
+ * columns are shown with A,B,C,...
+ *
+ * @author Amirreza Hashemi
+ * @version 1.0
+ * @since 3/31/2020
  */
 public class Map {
+    //The row of the board.
     private final int ROW;
+    //The column of the board.
     private final int COLUMN;
+    //An 2D array the implants board of the game
     private char[][] board;
 
 
     /**
-     * Instantiates a new Map.
+     * Instantiates a new Map 4 cells are filled at start of the game .
      */
     public Map() {
         this.ROW = 8;
@@ -27,33 +36,31 @@ public class Map {
     }
 
     /**
-     * Put disk.
+     * Puts a single disk of the given color to given coordinates.
      *
-     * @param x     the x
-     * @param y     the y
-     * @param color the color
+     * @param x     the x (row)
+     * @param y     the y (column)
+     * @param color the disk's color
      */
-    public void putDisk(int x,int y,char color)
-    {
+    public void putDisk(int x, int y, char color) {
         board[x][y] = color;
     }
 
     /**
-     * Flip disk.
+     * Changes the color of disk in board and implants disk flipping.
      *
-     * @param x the x
-     * @param y the y
+     * @param x the x (row)
+     * @param y the y (column)
      */
-    public void flipDisk (int x,int y)
-    {
-       if (board[x][y] =='W')
-           board[x][y] ='B' ;
-       else
-           board[x][y] = 'W' ;
+    public void flipDisk(int x, int y) {
+        if (board[x][y] == 'W')
+            board[x][y] = 'B';
+        else
+            board[x][y] = 'W';
     }
 
     /**
-     * Gets row.
+     * Gets row numbers of board
      *
      * @return the row
      */
@@ -62,7 +69,7 @@ public class Map {
     }
 
     /**
-     * Gets column.
+     * Gets column number of board.
      *
      * @return the column
      */
@@ -71,21 +78,23 @@ public class Map {
     }
 
     /**
-     * Get board char [ ] [ ].
+     * Get board.
      *
-     * @return the char [ ] [ ]
+     * @return the char[ ][ ] that implants board
      */
     public char[][] getBoard() {
         return board;
     }
 
     /**
-     * Converter int.
+     * Converter the A,B,C to a number y column coordinate
+     * A to 0 ,B to 1 and so on.
      *
      * @param y the y
      * @return the int
      */
     public int converter(char y) {
+        //also could've used casting.
         switch (y) {
             case 'A':
                 return 0;
@@ -115,30 +124,30 @@ public class Map {
     }
 
     /**
-     * Print.
+     * Print the board of the game.
      */
     public void print() {
+        //important note : the user terminal must support ansi color and unicode other wise game won't run correctly.
         for (char i = 'A'; i <= 'H'; i++)
-            System.out.print("\u001B[93m"+"     " + i);
+            System.out.print("\u001B[93m" + "     " + i);
         System.out.println();
-        System.out.println("\u001B[31m"+"  _________________________________________________");
+        System.out.println("\u001B[31m" + "  _________________________________________________");
 
         for (int i = 0; i < ROW; i++) {
-            System.out.print("\u001B[93m"+(i + 1) + " ");
-            for (int j = 0; j < COLUMN; j++)
-            {
-                System.out.print("\u001B[31m"+"|  " );
-                if (board[i][j]=='W')
-                    System.out.print("\u001B[97m"+ '⬤' + "\u001B[31m"+"  ");
-                else if (board[i][j]=='B')
-                    System.out.print("\u001B[30m"+ '⬤' + "\u001B[31m"+"  ");
+            System.out.print("\u001B[93m" + (i + 1) + " ");
+            for (int j = 0; j < COLUMN; j++) {
+                System.out.print("\u001B[31m" + "|  ");
+                if (board[i][j] == 'W')
+                    System.out.print("\u001B[97m" + '⬤' + "\u001B[31m" + "  ");
+                else if (board[i][j] == 'B')
+                    System.out.print("\u001B[30m" + '⬤' + "\u001B[31m" + "  ");
                 else
-                    System.out.print("\u001B[94m"+'⬤' + "\u001B[31m"+"  ");
+                    System.out.print("\u001B[94m" + '⬤' + "\u001B[31m" + "  ");
 
 
             }
             System.out.println("|");
-            System.out.println("  _________________________________________________"+"\u001B[37m"+"\u001B[104m");
+            System.out.println("  _________________________________________________" + "\u001B[37m" + "\u001B[104m");
 
         }
     }

@@ -1,12 +1,18 @@
 /**
- * The type Computer.
+ * The Computer class implant a AI to play with opponent
+ * Computer class is a subclass of Player class.
+ *
+ * @author Amirreza Hashemi
+ * @version 1.0
+ * @since 3/31/2020
  */
 public class Computer extends Player {
 
-    /**
-     * The Value per cell.
-     */
-    int[][] valuePerCell;
+
+     /* An array that shows that if we put the disk on that cell
+      how many disk would ne flipped */
+
+    private int[][] valuePerCell;
 
     /**
      * Instantiates a new Computer.
@@ -24,6 +30,8 @@ public class Computer extends Player {
 
     }
 
+    /* Calculate each cell value(how many disk would ne flipped
+    if we put the disk on that cell) */
     private void eachMoveValue(Map map) {
 
         char colorToCheck;
@@ -147,21 +155,22 @@ public class Computer extends Player {
     }
 
     /**
-     * Best move int [ ].
+     * Puts the disk in best possible cell .
      *
-     * @param map the map
-     * @return the int [ ]
+     * @param map the map of the game
+     * @return An int array that represent x,y the coordinate that AI wants to put the disk
      */
     public int[] bestMove(Map map) {
+        //first we find the the maximum value of the connor cells.
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
                 valuePerCell[i][j] = 0;
         eachMoveValue(map);
         int maxCorner = 0;
         int i = 0;
-        int [] coordinates = new int [2];
-        coordinates [0] = -1;
-        coordinates [1] = -1 ;
+        int[] coordinates = new int[2];
+        coordinates[0] = -1;
+        coordinates[1] = -1;
         while (i <= 7) {
             for (int j = 0; j < 8; j++) {
                 if (valuePerCell[i][j] > maxCorner) {
@@ -177,17 +186,17 @@ public class Computer extends Player {
             }
             i += 7;
         }
-        int max = maxCorner ;
-        for ( i = 0;i<8;i++)
-            for (int j = 0 ; j<8;j++)
-            {
-                if (valuePerCell[i][j] > max && (Math.abs(maxCorner- valuePerCell[i][j])>2 || maxCorner==0)) {
+        int max = maxCorner;
+        //now we find the maximum between all cells but we only change the max if it's far better than connor one.
+        for (i = 0; i < 8; i++)
+            for (int j = 0; j < 8; j++) {
+                if (valuePerCell[i][j] > max && (Math.abs(maxCorner - valuePerCell[i][j]) > 2 || maxCorner == 0)) {
                     max = valuePerCell[i][j];
                     coordinates[0] = i;
                     coordinates[1] = j;
                 }
             }
-        return coordinates ;
+        return coordinates;
     }
 }
 
